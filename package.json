@@ -1,0 +1,14 @@
+{
+  "name": "pokemonapi",
+  "version": "1.0.0",
+  "description": "tuto nodeJs",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "author": "Djaoued",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}

@@ -1,0 +1,5 @@
+aller dans le dossier et creer app.js
+cmd "npm init" dans le chemin du dossier > creation du package.json
+package.json > dans scripts, remplacer test par start et mettre node app.js apres les :
+cmd "npm run start" lancera notre app.js
+installer express > cmd "npm i express --save"
