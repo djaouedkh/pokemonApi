@@ -1,15 +1,17 @@
 {
-  "name": "pokemonapi",
+  "name": "pokemon-api",
   "version": "1.0.0",
-  "description": "tuto nodeJs",
+  "description": "",
   "main": "app.js",
   "scripts": {
     "start": "nodemon app.js"
   },
-  "author": "Djaoued",
+  "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.18.1",
+    "express": "^4.17.3",
+    "sequelize": "^6.17.0",
+    "mariadb": "^3.0.0",
     "serve-favicon": "^2.5.0"
   },
   "devDependencies": {
