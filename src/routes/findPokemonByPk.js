@@ -8,8 +8,14 @@ module.exports = (app) => {
         // va chercher via la colonne qui est "primary key"
         Pokemon.findByPk(req.params.id) // retourne une promesse contenant tous ce que possède notre model/table Pokemon
         .then((response) => {
-            const message = 'Un pokémon a bien été trouvé.'
-            res.json({ message, data: response })
+            if (response != null) {
+                const message = "Le pokemon à bien été trouvé."
+                res.json({ message, data: response })
+            }
+            else{
+                const message = "Le pokemon n'existe pas."
+                res.json({ message, data: response })
+            }
         })
         .catch(error => {
             const message = 'Le pokemons n\'a pas pu etre récupérée. Réessayez dans quelques instants.';
