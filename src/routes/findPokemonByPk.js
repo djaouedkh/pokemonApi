@@ -1,10 +1,11 @@
 // importe le model Pokemon qu'exporte sequelize.js
 const { Pokemon } = require('../db/sequelize')
+const auth = require('../auth/auth')
 
 // exporte une fonction(param1) => param1: sera remplacé par notre app correspondant à express
 // avec cet argument on pourra donc créer nos routes de manière normal (.get, .post...)
 module.exports = (app) => {
-    app.get('/api/pokemons/:id', (req, res) => {
+    app.get('/api/pokemons/:id', auth, (req, res) => {
         // va chercher via la colonne qui est "primary key"
         Pokemon.findByPk(req.params.id) // retourne une promesse contenant tous ce que possède notre model/table Pokemon
         .then((response) => {

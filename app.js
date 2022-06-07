@@ -1,11 +1,11 @@
 const express = require('express');
 // middleware tiers semblable à notre middleware "maison" (affiche url) mais en mieux
-const morgan = require('morgan'); // si aucun chemin précisé : recup dans le dossier node_modules
 const favicon = require('serve-favicon');
 const sequelize = require('./src/db/sequelize.js');
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
+
 //-------------------------------------------------------------------
 // ------------------------IMPORTANT---------------------------------
 // permet de recuperer des données du body en Json pour travailler avec
@@ -32,10 +32,7 @@ app.use(express.urlencoded({ extended: true }));
 //     next(); // permet de passer à la suite vers l'api
 // });
 
-app
-    .use(favicon(__dirname + '/favicon.ico')) // utilise le favicon
-    // intercept et affiche url ("morgan") + indique si la requete est bonne
-    .use(morgan('dev')) // option 'dev': sera utiliser pour la partie dev
+app.use(favicon(__dirname + '/favicon.ico')) // utilise le favicon
 
 
 // Connexion BDD
@@ -62,6 +59,9 @@ require('./src/routes/updatePokemon')(app);
 
 // SUPPRIMER => param: id du pokemon
 require('./src/routes/deletePokemon')(app);
+
+// LOGIN
+require('./src/routes/login')(app)
 
 
 
