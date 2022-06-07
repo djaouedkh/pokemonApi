@@ -16,7 +16,7 @@ module.exports = (app) => {
                 // si destroy() ne s'execute pas cela va engendrer une erreur et donc avec le return on renvoie cette erreur et le catch() le traite
                 // supprime / destroy(1)
                 // 1: where id = id du pokemon recup
-                return Pokemon.destroy({
+                return Pokemon.destroy({ // pour le return voir routes/createPokemon.js
                     where: { id: pokemonDeleted.id }
                 })
                 .then(() => {
@@ -26,7 +26,7 @@ module.exports = (app) => {
             })
             // erreur serveur
             .catch(error => {
-                const message = 'Le pokemons n\'a pas pu etre modifié. Réessayez dans quelques instants.';
+                const message = 'Le pokemons n\'a pas pu etre supprimé. Réessayez dans quelques instants.';
                 res.status(500).json({message, data: error});
             })
     })

@@ -3,6 +3,13 @@
 // utile pour tester les type entré, on l'utilisera dans le Validator de la prop types
 const validTypes = ['Plante', 'Poison', 'Feu', 'Eau', 'Insecte', 'Vol', 'Normal', 'Electrik', 'Fée'];
 
+// VALIDATEUR
+// fonctionnnalité de sequelize qui permet d'ajouter des contraintes et validateurs pour nos differents champs de notre model
+// validateurs : permet de voir si les données rentrées correspondent à ce que l'on souhaite et auquel cas, on bloque la requete sql
+// contraintes : recoit les données rentrées et interroge sql si nos données passe la contrainte d'un champs sans pour autant envoyer des requetes sql
+// -> on utilise svt cela avec les contraintes d'unicité => quand on rentre le nom d'un pokemon on veut qu'il soit unique
+//          - donc sequelize regarde la contrainte et interroge sql afin de savoir si on peut passer cette contrainte et tt cela sans faire de requete
+
 // fonction(1,2)
 // 1param: objet de sequelize (la connexion de sequelize)
 // 2param: objet DataTypes native à sequelize (formate les types de donnée de chaque prop du model/table (STRING ...)
@@ -18,6 +25,10 @@ module.exports = (sequelize, DataTypes) => {
         name: {
             type: DataTypes.STRING,
             allowNull: false, // ne doit pas etre vide
+            // contrainte d'unicité
+            unique: {
+                msg: 'Le nom est déjà pris.'
+            },
             // validation: permet grace a des mot clé natives de verifier que les données rentré sont bonnes
             validate: {
                 notEmpty: {msg: 'le champs doit etre remplis'},

@@ -1,5 +1,5 @@
 const { Pokemon } = require('../db/sequelize');
-const {ValidationError} = require('sequelize');
+const {ValidationError, UniqueConstraintError} = require('sequelize');
   
 module.exports = (app) => {
   app.put('/api/pokemons/:id', (req, res) => {
@@ -13,6 +13,9 @@ module.exports = (app) => {
     // puis on renvoie le pokemon modifier pour avoir une api complete
     .then(() => {
       // then(): c'est une promesse, donc si on return à chaque .then() on peut gerer les cas d'erreur dans le 1er catch (cela factorisera et evitera de coder plusieurs fois la meme erreures si elle est identique)
+      // en faite nous pouvons utiliser ce procéder car ce sont les mm types d'erreures récurentes pour toutes les requetes a la bdd (erreur 500)
+      // si Pokemon.update ne marche pas => catch s'active
+      // pour récup l'erreur de Pokemon.findByPk alors on es obligé de le return comme sa on recup l'erreur si elle existe et donc pas besoin de le traiter dans findByPk car elle return dans le block juste avant et es donc traité dans le 1er catch()
       // on récup le pokemon que l'on a modifié grace à l'id.param tjr dispo
       return Pokemon.findByPk(id)
       .then((response) => {
@@ -31,6 +34,9 @@ module.exports = (app) => {
       // si c'est le cas alors sequelize renvoie une erreur qui est une instance de ValidationError
       if (error instanceof ValidationError) {
         return res.status(400).json({message: error.message, data: error});
+      }
+      if (error instanceof UniqueConstraintError) {
+        return res.status(400).json( {meesage: error.message, data: error})
       }
       const message = 'Le pokemons n\'a pas pu etre modifié. Réessayez dans quelques instants.';
       res.status(500).json({message, data: error});

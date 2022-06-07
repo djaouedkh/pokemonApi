@@ -65,7 +65,7 @@ require('./src/routes/deletePokemon')(app);
 
 
 
-// ERREUR 404
+// ERREUR 404 page demandé non trouvé (url rentré ne correspond à aucune routes de l'app)
 app.use((req, res) => {
     const message = 'Impossible de trouver la ressource demandée! Vous pouvez essayer une autre URL.';
     res.status(404).json({message}); // message entre accolades pour renvoyer un objet
