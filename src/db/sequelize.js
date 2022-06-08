@@ -8,14 +8,14 @@ const bcrypt = require('bcrypt')
 
 let sequelize
 
-// bdd en ligne, changer les trucs
+// bdd en ligne, changer les infos
 if (process.env.NODE_ENV === 'production') {
     sequelize = new Sequelize(
         'pokedex', // 1: nom de la BDD
         'root', // 2: identifiant
         '', // 3: mdp
         { // 4
-        host: 'alwaysdata',  // nom du serveur local
+        host: 'serveur',  // nom du serveur local
         dialect: 'mariadb', // type de BDD
         dialectOptions: { // optionnel
             timezone: 'Etc/GMT-2',
